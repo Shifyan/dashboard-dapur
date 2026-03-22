@@ -15,6 +15,7 @@ class ListMonthlyReports extends ListRecords
         return [
             \Filament\Actions\Action::make('tambah_laporan')
                 ->label('Tambah Transaksi')
+                ->visible(fn () => auth()->user()->role === 'ADMIN')
                 ->model(\App\Models\Transaction::class)
                 ->form([
                     \Filament\Forms\Components\Select::make('user_id')
