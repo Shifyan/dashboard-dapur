@@ -28,6 +28,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\App\Filament\Auth\Login::class)
             ->sidebarCollapsibleOnDesktop()
+            ->brandName("Dapurku")
+            ->userMenuItems([
+                'profile' => \Filament\Navigation\MenuItem::make()
+                    ->label('Pengaturan Profil')
+                    ->url(fn (): string => \App\Filament\Admin\Pages\Setting::getUrl())
+                    ->icon('heroicon-o-cog-6-tooth'),
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])
