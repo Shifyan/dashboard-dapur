@@ -18,10 +18,10 @@ class Dashboard extends \Filament\Pages\Dashboard
             'investors' => 'Data Semua Investor',
         ];
 
-        // Tambahkan pilihan nama masing-masing investor
-        $investors = \App\Models\User::where('role', 'USER')->get();
-        foreach ($investors as $investor) {
-            $options['investor_' . $investor->id] = 'Investor: ' . $investor->username;
+        // Tambahkan pilihan nama masing-masing investor (optimized pluck)
+        $investorOptions = \App\Models\User::where('role', 'USER')->pluck('username', 'id');
+        foreach ($investorOptions as $id => $username) {
+            $options['investor_' . $id] = 'Investor: ' . $username;
         }
 
         return $schema

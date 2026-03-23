@@ -11,7 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Global middleware — berlaku untuk SEMUA route, termasuk Filament /admin
+        $middleware->append(\App\Http\Middleware\LogRequestPerformance::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

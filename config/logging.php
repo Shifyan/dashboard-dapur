@@ -127,6 +127,24 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // Log khusus untuk query lambat
+        'queries' => [
+            'driver'              => 'daily',
+            'path'                => storage_path('logs/queries.log'),
+            'level'               => 'debug',
+            'days'                => 7,
+            'replace_placeholders' => true,
+        ],
+
+        // Log khusus untuk performa request
+        'performance' => [
+            'driver'              => 'daily',
+            'path'                => storage_path('logs/performance.log'),
+            'level'               => 'debug',
+            'days'                => 7,
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];
