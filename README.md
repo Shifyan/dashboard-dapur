@@ -60,13 +60,7 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
     php artisan migrate --seed
     ```
 
-5. **Link Storage**
-
-    ```bash
-    php artisan storage:link
-    ```
-
-6. **Jalankan Aplikasi**
+5. **Jalankan Aplikasi**
     ```bash
     php artisan serve
     ```
