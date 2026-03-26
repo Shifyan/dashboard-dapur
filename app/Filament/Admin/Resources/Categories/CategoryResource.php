@@ -37,7 +37,7 @@ class CategoryResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()->role === 'ADMIN';
+        return auth()->user()->isAdmin();
     }
 
     protected static ?string $recordTitleAttribute = 'name';

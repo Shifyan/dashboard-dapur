@@ -26,7 +26,7 @@ class IncomeExpenseStats extends BaseWidget
         $baseQuery = Transaction::query();
         $user = auth()->user();
 
-        if ($user->role === 'ADMIN') {
+        if ($user->isAdmin()) {
             $currentFilter = $this->filters['role_filter'] ?? 'all';
 
             if ($currentFilter === 'admin') {

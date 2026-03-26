@@ -31,6 +31,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        \App\Models\User::firstOrCreate(
+            ['email' => 'dev@gmail.com'],
+            [
+                'username' => 'dev',
+                'password' => bcrypt('devPassword'),
+                'role' => 'DEV',
+            ]
+        );
+
         $this->call([
             CategorySeeder::class,
             TransactionSeeder::class,

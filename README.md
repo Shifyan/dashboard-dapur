@@ -17,6 +17,7 @@ Sistem manajemen keuangan dan investor berbasis web yang dibangun dengan Laravel
 - **Manajemen Investor (User)**: Implementasi **Soft Deletes** untuk menjaga integritas data riwayat transaksi.
 - **Laporan Bulanan Dinamis**: Penarikan data laporan berbasis **SQL View** (`monthly_reports_view`) untuk performa tinggi.
 - **Autentikasi Kustom**: Login kustom dengan **Modal Notifikasi** interaktif untuk penanganan error.
+- **Pemantauan Performa**: Logging otomatis untuk melacak query lambat (>500ms) dan request lama secara real-time.
 - **Pengaturan Profil**: Update data akun secara terpisah melalui **Modal Actions** (Username, Email, Password).
 
 ## 🛠️ Persiapan Lingkungan (Prerequisites)
@@ -51,31 +52,18 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
     php artisan key:generate
     ```
 
-4. **Konfigurasi Database & .env**
-   Sesuaikan variabel berikut di file `.env`:
+    _Sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) di file `.env`._
 
-    ```bash
-    APP_NAME="Dapurku Dashboard"
-    APP_ENV=local
-    APP_URL=http://localhost:8000
-
-    # Database (Contoh menggunakan MySQL)
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=nama_db_anda
-    DB_USERNAME=root
-    DB_PASSWORD=
-
-    # Logging (Channel 'performance' harus ada jika ingin monitoring)
-    LOG_CHANNEL=stack
-    LOG_STACK=single
-    ```
-
-5. **Migrasi & Seed Database**
+4. **Migrasi & Seed Database**
 
     ```bash
     php artisan migrate --seed
+    ```
+
+5. **Link Storage**
+
+    ```bash
+    php artisan storage:link
     ```
 
 6. **Jalankan Aplikasi**
@@ -93,8 +81,7 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 Project ini mengikuti arsitektur modular Filament v5:
 
 - `app/Filament/Admin/Resources/`: Setiap resource memiliki folder sendiri dengan sub-folder `Schemas/` (Form) dan `Tables/` (Action/Filter).
+- `app/Http/Middleware/LogRequestPerformance.php`: Middleware untuk tracking performa aplikasi.
 - `app/Providers/Filament/AdminPanelProvider.php`: Pusat konfigurasi navigasi, tema warna (`Amber`), dan brand ("Dapurku").
-
----
 
 _Dokumentasi ini dibuat untuk memudahkan proses onboarding dan pemeliharaan tim pengembang Dapurku. Project ini sepenuhnya berbasis PHP (tanpa build step NPM)._

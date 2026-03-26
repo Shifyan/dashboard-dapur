@@ -37,10 +37,25 @@ class UserResource extends Resource
 
     public static function canAccess(): bool
     {
-        return auth()->user()->role === 'ADMIN';
+        return auth()->user()->isAdmin();
     }
 
     protected static ?string $recordTitleAttribute = 'username';
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = auth()->user();
+
+        // Admin cannot see users with 'DEV' role
+        if ($user->role === 'ADMIN') {
+            $query->where('role', '!=', 'DEV');
+        }
+
+        // Dev can see everyone (no extra filter)
+        
+        return $query;
+    }
 
     public static function form(Schema $schema): Schema
     {

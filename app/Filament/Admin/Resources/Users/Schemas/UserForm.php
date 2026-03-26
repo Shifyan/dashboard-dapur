@@ -23,7 +23,11 @@ class UserForm
                     ->nullable(),
                 Select::make('role')
                     ->label('Peran (Role)')
-                    ->options([
+                    ->options(fn () => auth()->user()->role === 'DEV' ? [
+                        'USER' => 'Investor',
+                        'ADMIN' => 'Administrator',
+                        'DEV' => 'Developer',
+                    ] : [
                         'USER' => 'Investor',
                         'ADMIN' => 'Administrator',
                     ])

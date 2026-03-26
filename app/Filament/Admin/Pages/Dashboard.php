@@ -31,7 +31,7 @@ class Dashboard extends \Filament\Pages\Dashboard
                     ->options($options)
                     ->default('all')
                     // Hanya ditampilkan untuk admin
-                    ->visible(fn () => auth()->user()->role === 'ADMIN'),
+                    ->visible(fn () => auth()->user()->isAdmin()),
             ]);
     }
 }

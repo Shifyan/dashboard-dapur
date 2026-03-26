@@ -15,14 +15,14 @@ class ListMonthlyReports extends ListRecords
         return [
             \Filament\Actions\Action::make('tambah_laporan')
                 ->label('Tambah Transaksi')
-                ->visible(fn () => auth()->user()->role === 'ADMIN')
+                ->visible(fn () => auth()->user()->isAdmin())
                 ->model(\App\Models\Transaction::class)
                 ->form([
                     \Filament\Forms\Components\Select::make('user_id')
                         ->relationship('user', 'username', fn (\Illuminate\Database\Eloquent\Builder $query) => $query->whereNull('deleted_at'))
                         ->label('Pilih Investor')
-                        ->visible(fn () => auth()->user()->role === 'ADMIN')
-                        ->required(fn () => auth()->user()->role === 'ADMIN'),
+                        ->visible(fn () => auth()->user()->isAdmin())
+                        ->required(fn () => auth()->user()->isAdmin()),
                     \Filament\Forms\Components\Select::make('category_id')
                         ->relationship('category', 'name')
                         ->label('Kategori')
@@ -50,7 +50,7 @@ class ListMonthlyReports extends ListRecords
                         ->nullable(),
                 ])
                 ->action(function (array $data) {
-                    if (auth()->user()->role !== 'ADMIN') {
+                    if (! auth()->user()->isAdmin()) {
                         $data['user_id'] = auth()->id();
                     }
                     if (empty($data['note'])) {

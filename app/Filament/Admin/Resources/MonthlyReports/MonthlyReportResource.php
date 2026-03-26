@@ -64,7 +64,7 @@ class MonthlyReportResource extends Resource
         $query = parent::getEloquentQuery();
         
         $user = auth()->user();
-        if ($user->role !== 'ADMIN') {
+        if (! $user->isAdmin()) {
             // Investor hanya melihat laporannya sendiri
             $query->where('user_id', $user->id);
         }

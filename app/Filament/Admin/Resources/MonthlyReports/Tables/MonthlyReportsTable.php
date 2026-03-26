@@ -40,7 +40,7 @@ class MonthlyReportsTable
                 \Filament\Tables\Filters\SelectFilter::make('user_id')
                     ->label('Pilihan User')
                     ->relationship('user', 'username')
-                    ->visible(fn () => auth()->user()->role === 'ADMIN'),
+                    ->visible(fn () => auth()->user()->isAdmin()),
 
                 \Filament\Tables\Filters\Filter::make('period')
                     ->form([

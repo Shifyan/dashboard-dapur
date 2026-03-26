@@ -66,8 +66,8 @@ class ViewMonthlyReport extends Page implements HasTable
                         \Filament\Forms\Components\Select::make('user_id')
                             ->relationship('user', 'username', fn (\Illuminate\Database\Eloquent\Builder $query) => $query->whereNull('deleted_at'))
                             ->label('Pilih Investor')
-                            ->visible(fn () => auth()->user() && auth()->user()->role === 'ADMIN')
-                            ->required(fn () => auth()->user() && auth()->user()->role === 'ADMIN'),
+                            ->visible(fn () => auth()->user() && auth()->user()->isAdmin())
+                            ->required(fn () => auth()->user() && auth()->user()->isAdmin()),
                         \Filament\Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->label('Kategori')
@@ -93,9 +93,9 @@ class ViewMonthlyReport extends Page implements HasTable
                             ->label('Keterangan / Catatan')
                             ->nullable(),
                     ])
-                    ->visible(fn () => auth()->check() && auth()->user()->role === 'ADMIN'),
+                    ->visible(fn () => auth()->check() && auth()->user()->isAdmin()),
                 \Filament\Actions\DeleteAction::make()
-                    ->visible(fn () => auth()->check() && auth()->user()->role === 'ADMIN'),
+                    ->visible(fn () => auth()->check() && auth()->user()->isAdmin()),
             ]);
     }
 
