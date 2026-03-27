@@ -21,9 +21,11 @@ jobs:
 
       - name: Adjust paths for server
         run: |
-          sed -i "s|'../storage/framework/maintenance.php'|'../laravel_core/storage/framework/maintenance.php'|g" public/index.php
-          sed -i "s|'../vendor/autoload.php'|'../laravel_core/vendor/autoload.php'|g" public/index.php
-          sed -i "s|'../bootstrap/app.php'|'../laravel_core/bootstrap/app.php'|g" public/index.php
+          sed -i "s|__DIR__.'/../storage|__DIR__.'/../laravel_core/storage|g" public/index.php
+
+          sed -i "s|__DIR__.'/../vendor|__DIR__.'/../laravel_core/vendor|g" public/index.php
+
+          sed -i "s|__DIR__.'/../bootstrap|__DIR__.'/../laravel_core/bootstrap|g" public/index.php
 
       - name: Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader
